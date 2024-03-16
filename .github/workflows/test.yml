@@ -21,13 +21,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Install hub
-      if: inputs.pr
-      uses: geertvdc/setup-hub@master
-
     - name: Switch branch
       if: inputs.pr
-      run: hub pr checkout ${{ inputs.pr }}
+      run: |
+        apt-get update
+        apt-get install -y hub
+        hub pr checkout ${{ inputs.pr }}
 
     - name: echo PR
       run: |
