@@ -21,6 +21,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install hub
+      if: inputs.pr
+      uses: geertvdc/setup-hub@master
+
     - name: Switch branch
       if: inputs.pr
       run: hub pr checkout ${{ inputs.pr }}
