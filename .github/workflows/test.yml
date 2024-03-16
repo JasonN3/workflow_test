@@ -45,4 +45,5 @@ jobs:
         status: ${{ job.status }}
         context: Tests
         sha: ${{ env.sha }}
+        targetUrl: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
   
