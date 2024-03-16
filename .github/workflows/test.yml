@@ -13,6 +13,8 @@ jobs:
     - name: echo test
       run: |
         echo "This is a test"
+        echo "${{ env.job_name }}"
+        set
         
   test2:
     permissions: write-all
