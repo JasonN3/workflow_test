@@ -4,15 +4,35 @@ on:
     types:
       - completed
 
+  workflow_call:
+    inputs:
+      pr:
+        required: true
+        type: string
+
 jobs:
   test:
-    if: >
-      github.event_name == 'push' ||
-      ( github.event.workflow_run.event == 'pull_request' &&
-        github.event.workflow_run.conclusion == 'success' )
     runs-on: ubuntu-latest
     steps:
     - name: echo test
       run: |
         echo "This is a test 2"
-    
+        echo "This is a test"
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Switch branch
+      if: inputs.pr
+      env:
+        GITHUB_USER: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y hub
+        hub pr checkout ${{ inputs.pr }}
+
+    - name: echo PR
+      run: |
+        cat .github/workflows/test.yml
+   

@@ -6,7 +6,7 @@ jobs:
     name: Run Tests for PR
     if: >
       github.event.issue.pull_request && 
-      contains(github.event.issue.bodyText, '/run tests')
+      contains(github.event.comment.body, '/run tests')
     runs-on: ubuntu-latest
     steps:
       - name: Check association
@@ -14,9 +14,15 @@ jobs:
           allowed=("OWNER" "COLLABORATOR")
           value="\<${{ github.event.issue.author_association }}\>"
         
-          if [[ ${array[@]} =~ $value ]]
+          if [[ ${allowed[@]} =~ $value ]]
           then
             exit 0
           else
             exit 1
           fi
+  run-tests:
+    needs:
+      - pr_commented
+    uses: ./.github/workflows/test.yml
+    with:
+      pr: ${{ github.event.issue.number }}
