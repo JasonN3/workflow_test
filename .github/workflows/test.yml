@@ -4,12 +4,14 @@ on:
     types:
       - completed
 
+  workflow_call:
+    inputs:
+      pr:
+        required: true
+        type: string
+
 jobs:
   test:
-    if: >
-      github.event_name == 'push' ||
-      ( github.event.workflow_run.event == 'issue_comment' &&
-        github.event.workflow_run.conclusion == 'success' )
     runs-on: ubuntu-latest
     steps:
     - name: echo test
@@ -18,6 +20,10 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v4
+
+    - name: Switch branch
+      if: github.event_name == 'workflow_call'
+      run: hub pr checkout ${{ inputs.pr }}
 
     - name: echo PR
       run: |
