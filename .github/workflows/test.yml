@@ -22,7 +22,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Switch branch
-      if: github.event_name == 'workflow_call'
+      if: inputs.pr
       run: hub pr checkout ${{ inputs.pr }}
 
     - name: echo PR
