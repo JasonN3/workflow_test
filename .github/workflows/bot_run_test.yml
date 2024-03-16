@@ -11,6 +11,14 @@ jobs:
     steps:
       - name: Check association
         run: |
+          if [[ -z "${{ github.event.issue.pull_request }}" ]]
+          then
+            exit 1
+          fi
+          if ! [[ ${{ github.event.issue.bodyText }} =~ .*/run tests .* ]]
+          then
+            exit 1
+          fi
           allowed=("OWNER" "COLLABORATOR")
           value="\<${{ github.event.issue.author_association }}\>"
         
