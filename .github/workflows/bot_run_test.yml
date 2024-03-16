@@ -20,7 +20,9 @@ jobs:
           else
             exit 1
           fi
-
-      - uses: ./.github/workflows/test.yml
-        with:
-          pr: ${{ github.event.issue.number }}
+  run-tests:
+    needs:
+      - pr_commented
+    uses: ./.github/workflows/test.yml
+    with:
+      pr: ${{ github.event.issue.number }}
