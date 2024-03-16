@@ -8,11 +8,18 @@ jobs:
   test:
     if: >
       github.event_name == 'push' ||
-      ( github.event.workflow_run.event == 'pull_request' &&
+      ( github.event.workflow_run.event == 'issue_comment' &&
         github.event.workflow_run.conclusion == 'success' )
     runs-on: ubuntu-latest
     steps:
     - name: echo test
       run: |
         echo "This is a test"
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: echo PR
+      run: |
+        cat .github/workflows/test.yml
     
