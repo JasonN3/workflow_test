@@ -3,7 +3,7 @@ on: issue_comment
 
 jobs:
   pr_commented:
-    name: Run Tests for PR
+    name: Check Permissions
     if: >
       github.event.issue.pull_request && 
       contains(github.event.comment.body, '/run tests')
@@ -21,6 +21,7 @@ jobs:
             exit 1
           fi
   run-tests:
+    name: Run Tests
     permissions: write-all
     needs:
       - pr_commented
