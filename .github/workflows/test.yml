@@ -42,7 +42,7 @@ jobs:
       id: jobs
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        job_name: "Run Tests / ${{ vars.JOB_NAME }}"
+        job_name: "Run Tests / ${{ job.name }}"
 
     - name: Set final commit status
       if: inputs.pr && always()
@@ -50,7 +50,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
-        context: ${{ vars.JOB_NAME }}
+        context: ${{ job.name }}
         sha: ${{ env.sha }}
         targetUrl: ${{ steps.jobs.outputs.html_url }}
   
