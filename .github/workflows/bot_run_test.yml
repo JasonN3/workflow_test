@@ -21,6 +21,7 @@ jobs:
             exit 1
           fi
   run-tests:
+    permissions: write-all
     needs:
       - pr_commented
     uses: ./.github/workflows/test.yml
