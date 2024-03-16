@@ -38,7 +38,7 @@ jobs:
       id: jobs
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        job_name: "Run Tests"
+        job_name: "Run Tests / test"
 
     - name: Set final commit status
       if: inputs.pr && always()
