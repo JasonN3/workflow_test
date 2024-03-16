@@ -13,6 +13,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
     - name: echo test
       run: |
@@ -31,8 +32,19 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y hub
         hub pr checkout ${{ inputs.pr }}
+        echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
     - name: echo PR
       run: |
         cat .github/workflows/test.yml
-   
+
+    - name: Set final commit status
+      if: inputs.pr && always()
+      uses: myrotvorets/set-commit-status-action@v2.0.1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        status: ${{ job.status }}
+        context: Tests
+        sha: ${{ env.sha }}
+        targetUrl: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  
