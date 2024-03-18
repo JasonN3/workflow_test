@@ -21,6 +21,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      checks: write
     if: github.event_name == 'issue_comment'
     runs-on: ubuntu-latest
     steps:
