@@ -12,6 +12,7 @@ jobs:
     steps:
     - name: echo test
       run: |
+        echo "This is a test 2"
         echo "This is a test"
         echo "${{ env.job_name }}"
         set
