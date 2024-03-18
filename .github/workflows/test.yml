@@ -9,7 +9,6 @@ jobs:
   test:
     name: This is a test
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
     - name: echo test
       run: |
