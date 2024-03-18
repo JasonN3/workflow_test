@@ -57,7 +57,7 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
-        context: ${{ github.jobs[github.job].name }}
+        context: test2
         sha: ${{ env.sha }}
         targetUrl: ${{ steps.jobs.outputs.html_url }}
   
