@@ -19,9 +19,9 @@ jobs:
         
   test2:
     permissions:
-      contents: write
+      contents: read
       packages: write
-      checks: write
+      statuses: write
     if: github.event_name == 'issue_comment'
     runs-on: ubuntu-latest
     steps:
