@@ -19,7 +19,7 @@ jobs:
         
   test2:
     permissions:
-      contents: read
+      contents: write
       packages: write
       checks: write
     if: github.event_name == 'issue_comment'
@@ -49,7 +49,7 @@ jobs:
       id: jobs
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        job_name: "Run Tests / ${{ github.jobs[github.job].name }}"
+        job_name: "Run Tests / test2"
 
     - name: Set final commit status
       if: inputs.pr && always()
